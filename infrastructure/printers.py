@@ -2,6 +2,9 @@ from domain.ticket import Ticket
 import os
 import datetime
 from typing import Protocol
+from fpdf import FPDF
+
+
 
 
 class TicketPrinter(Protocol):
@@ -19,9 +22,9 @@ class ConsolePrinter:
               f"Number : {ticket.number}")
 
 
-class PDFPrinter:
+class HTMLPrinter:
 
-    def __init__(self, output_dir: str = "./tickets") -> None:
+    def __init__(self, output_dir: str = "./tickets_html") -> None:
         self._output_dir = output_dir
         os.makedirs(output_dir, exist_ok=True)
 
@@ -83,3 +86,40 @@ class PDFPrinter:
                    created_at=datetime.datetime.now())
 
         return html_output
+
+class PDFPrinter:
+
+    def __init__(self, path : str = "./tickets_pdf") -> None:
+        self._output_dir = path
+        os.makedirs(path, exist_ok=True)
+
+    def print_ticket(self, ticket : Ticket) -> None:
+
+        filename = f"{ticket.id}.pdf"
+        output_path = os.path.join(self._output_dir, filename)
+
+        pdf = FPDF(unit='mm', format=(100, 100))
+        pdf.set_margins(5, 5, 5)
+        pdf.add_page()
+
+        pdf.set_font("Arial", "B", 16)
+        pdf.cell(0, 10, "Cinema", align='C')
+        pdf.ln(12)
+
+        # Разделитель
+        pdf.set_draw_color(0, 0, 0)
+        pdf.line(5, pdf.get_y(), 95, pdf.get_y())
+        pdf.ln(5)
+
+        pdf.set_font("Arial", "B", 11)
+        pdf.cell(0, 8, f"ID ticket: {str(ticket.id)}")
+        pdf.ln(8)
+        pdf.cell(0, 8, f"Row: {str(ticket.row)}")
+        pdf.ln(8)
+        pdf.cell(0, 8, f"Number: {str(ticket.number)}")
+        pdf.ln(8)
+        pdf.cell(0, 8, f"Price: {str(ticket.price)}$")
+        pdf.ln(8)
+        pdf.set_font("Arial", "I", 9)
+        pdf.cell(0, 8, f"Date: {str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"))}")
+        pdf.output(output_path)

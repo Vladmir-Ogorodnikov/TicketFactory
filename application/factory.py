@@ -1,6 +1,7 @@
 from infrastructure.printers import TicketPrinter
 from uuid import UUID
-from domain.ticket import ChildTicket, StandardTicket, VIPTicket
+from domain.ticket import ChildTicket, StandardTicket, VIPTicket, Ticket
+
 
 class TicketFactory:
 
