@@ -30,17 +30,21 @@ class Ticket(ABC):
     def get_info(self):
         ...
 
+    @abstractmethod
+    def get_ticket_type(self):
+        ...
+
 class StandardTicket(Ticket):
 
     def __init__(self, user_id, row, number, price : int = 10):
         super().__init__(user_id, row, number, price)
 
 
-
-
     def get_info(self):
         return f"Стандартный билет, ряд {self.row}, место {self.number}, цена: {self.price}$"
 
+    def get_ticket_type(self) -> str:
+        return "Standard"
 
 
 class VIPTicket(Ticket):
@@ -52,6 +56,8 @@ class VIPTicket(Ticket):
     def get_info(self):
         return f"VIP-билет с баром, ряд {self.row}, место {self.number}, цена: {self.price}$"
 
+    def get_ticket_type(self) -> str:
+        return "VIP"
 
 class ChildTicket(Ticket):
 
@@ -60,3 +66,6 @@ class ChildTicket(Ticket):
 
     def get_info(self):
         return f"Детский билет, ряд {self.row}, место {self.number}, цена: {self.price}$"
+
+    def get_ticket_type(self) -> str:
+        return "Child"
