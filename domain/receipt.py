@@ -68,15 +68,7 @@ class ConsoleReceiptPrinter:
 
 
     def print_receipt(self, receipt : Receipt) -> None:
-        group_tickets = {}
 
-        for ticket in receipt.tickets:
-            ticket_type = ticket.get_ticket_type()
-            group_tickets[ticket_type] = group_tickets.get(ticket_type, 0) + 1
-
-        result = [f"{ticket_type} x {count}" for ticket_type, count in group_tickets.items()]
-
-        tickets_str = "\n".join(result)
 
         print("================================")
         print("             ЧЕК                ")
