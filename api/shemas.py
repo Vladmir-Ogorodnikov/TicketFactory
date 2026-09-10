@@ -21,6 +21,6 @@ class PurchaseRequest(BaseModel):
 class ReceiptResponse(BaseModel):
     ticket_id : UUID
     user_id : UUID
-    list_tickets : List[TicketResponse]
+    tickets : List[TicketResponse]
     total_amount : float
     created_at : str
