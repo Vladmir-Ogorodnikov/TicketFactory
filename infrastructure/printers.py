@@ -2,7 +2,7 @@ from domain.ticket import Ticket
 import os
 import datetime
 from typing import Protocol
-from fpdf import FPDF
+# from fpdf import FPDF
 
 
 
@@ -98,28 +98,28 @@ class PDFPrinter:
         filename = f"{ticket.id}.pdf"
         output_path = os.path.join(self._output_dir, filename)
 
-        pdf = FPDF(unit='mm', format=(100, 100))
-        pdf.set_margins(5, 5, 5)
-        pdf.add_page()
-
-        pdf.set_font("Arial", "B", 16)
-        pdf.cell(0, 10, "Cinema", align='C')
-        pdf.ln(12)
-
-        # Разделитель
-        pdf.set_draw_color(0, 0, 0)
-        pdf.line(5, pdf.get_y(), 95, pdf.get_y())
-        pdf.ln(5)
-
-        pdf.set_font("Arial", "B", 11)
-        pdf.cell(0, 8, f"ID ticket: {str(ticket.id)}")
-        pdf.ln(8)
-        pdf.cell(0, 8, f"Row: {str(ticket.row)}")
-        pdf.ln(8)
-        pdf.cell(0, 8, f"Number: {str(ticket.number)}")
-        pdf.ln(8)
-        pdf.cell(0, 8, f"Price: {str(ticket.price)}$")
-        pdf.ln(8)
-        pdf.set_font("Arial", "I", 9)
-        pdf.cell(0, 8, f"Date: {str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"))}")
-        pdf.output(output_path)
+        # pdf = FPDF(unit='mm', format=(100, 100))
+        # pdf.set_margins(5, 5, 5)
+        # pdf.add_page()
+        #
+        # pdf.set_font("Arial", "B", 16)
+        # pdf.cell(0, 10, "Cinema", align='C')
+        # pdf.ln(12)
+        #
+        # # Разделитель
+        # pdf.set_draw_color(0, 0, 0)
+        # pdf.line(5, pdf.get_y(), 95, pdf.get_y())
+        # pdf.ln(5)
+        #
+        # pdf.set_font("Arial", "B", 11)
+        # pdf.cell(0, 8, f"ID ticket: {str(ticket.id)}")
+        # pdf.ln(8)
+        # pdf.cell(0, 8, f"Row: {str(ticket.row)}")
+        # pdf.ln(8)
+        # pdf.cell(0, 8, f"Number: {str(ticket.number)}")
+        # pdf.ln(8)
+        # pdf.cell(0, 8, f"Price: {str(ticket.price)}$")
+        # pdf.ln(8)
+        # pdf.set_font("Arial", "I", 9)
+        # pdf.cell(0, 8, f"Date: {str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M"))}")
+        # pdf.output(output_path)

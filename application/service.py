@@ -1,6 +1,6 @@
 from application.factory import TicketFactory
-from domain.receipt import ReceiptPrinter, ConsoleReceiptPrinter
-from domain.receipt import Receipt
+from infrastructure.receipt import ReceiptPrinter, ConsoleReceiptPrinter
+from infrastructure.receipt import Receipt
 from uuid import UUID, uuid4
 from typing import Optional
 
