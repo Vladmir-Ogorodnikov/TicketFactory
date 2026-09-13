@@ -3,10 +3,13 @@ from infrastructure.printers import ConsolePrinter, PDFPrinter
 from application.factory import TicketFactory
 from fastapi import FastAPI
 from api.routes import ticket_router
+from infrastructure.receipt import Receipt
+from uuid import UUID
 
 app = FastAPI()
 app.include_router(ticket_router)
 
+list_tickets: dict[UUID, Receipt] = {}
 
 
 # printer = ConsolePrinter()

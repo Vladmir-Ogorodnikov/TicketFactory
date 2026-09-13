@@ -24,6 +24,7 @@ class CinemaService:
         list_ticket = [self.__ticket_factory.create_ticket(user_id, seat[0], seat[1], age, vip_flag) for seat in seats]
         receipt = Receipt(user_id, list_ticket)
 
+
         if self.__receipt_printer:
             self.__receipt_printer.print_receipt(receipt)
 
