@@ -9,7 +9,7 @@ from uuid import UUID
 app = FastAPI()
 app.include_router(ticket_router)
 
-list_tickets: dict[UUID, Receipt] = {}
+
 
 
 # printer = ConsolePrinter()

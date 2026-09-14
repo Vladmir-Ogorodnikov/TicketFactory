@@ -23,17 +23,17 @@ class PurchaseRequest(BaseModel):
     @classmethod
     def validate_age(cls, v):
         if v <= 0:
-            raise ...
+            raise ValueError()
         return v
 
     @field_validator("seats")
     @classmethod
     def validate_seats(cls, seats):
         if not seats:
-            raise ...
+            raise ValueError()
         for row, number in seats:
             if row < 1 or number < 1:
-                raise ...
+                raise ValueError()
         return seats
 
 
@@ -41,6 +41,7 @@ class PurchaseRequest(BaseModel):
 
 class ReceiptResponse(BaseModel):
     model_config = {"from_attributes": True}
+    receipt_id: UUID
     user_id : UUID
     tickets : List[TicketResponse]
     total_amount : float
