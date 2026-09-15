@@ -2,6 +2,7 @@ from pydantic import BaseModel, field_validator, Field
 from uuid import UUID
 from typing import List, Tuple
 from domain.ticket import Ticket
+from api.exceptions import TicketValidationError
 
 class TicketResponse(BaseModel):
     """Pydantic схема для билета в ответе."""
@@ -23,17 +24,17 @@ class PurchaseRequest(BaseModel):
     @classmethod
     def validate_age(cls, v):
         if v <= 0:
-            raise ValueError()
+            raise TicketValidationError("Возраст должен быть больше 0!")
         return v
 
     @field_validator("seats")
     @classmethod
     def validate_seats(cls, seats):
         if not seats:
-            raise ValueError()
+            raise TicketValidationError("Список мест пуст!")
         for row, number in seats:
             if row < 1 or number < 1:
-                raise ValueError()
+                raise TicketValidationError("Номер ряда и номер места должны быть > 0")
         return seats
 
 

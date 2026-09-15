@@ -1,3 +1,4 @@
+from api.exceptions import ReceiptExceptions, TicketNotFoundError
 from application.factory import TicketFactory
 from domain.ticket import Ticket
 from infrastructure.receipt import ReceiptPrinter, ConsoleReceiptPrinter
@@ -44,10 +45,17 @@ class CinemaService:
         return receipt
 
     def get_receipt(self, receipt_id : UUID):
-        return self.__receipts.get(receipt_id)
+        receipt = self.__receipts.get(receipt_id)
+        if not receipt:
+            raise ReceiptExceptions(f"Чек с id: {receipt_id} не найден")  # ✅ Кастомное исключение
+        return receipt
+
 
     def get_ticket(self, ticket_id : UUID):
-        return self.__tickets.get(ticket_id)
+        ticket = self.__tickets.get(ticket_id)
+        if not ticket:
+            raise TicketNotFoundError(f"Билет с id: {ticket_id} не найден")
+        return ticket
 
 
 ticket_printer = ConsolePrinter()

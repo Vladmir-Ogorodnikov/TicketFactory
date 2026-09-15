@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from api.dependencies import get_cinema_service
+from api.exceptions import ReceiptExceptions
 from api.shemas import ReceiptResponse, PurchaseRequest, TicketResponse
 from application.service import CinemaService, receipt
 
@@ -50,7 +51,7 @@ def get_tickets(receipt_id : UUID, service : CinemaService = Depends(get_cinema_
     receipt = service.get_receipt(receipt_id)
 
     if not receipt:
-        raise HTTPException(status_code=404, detail="Чек не найден")
+        raise ReceiptExceptions(f"Чек с id: {receipt_id} не найден!")
 
     tickets_response = [
         TicketResponse(
