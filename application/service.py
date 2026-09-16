@@ -25,17 +25,16 @@ class CinemaService:
             vip_flag: bool
     ) -> Receipt:
 
-        list_ticket = [self.__ticket_factory.create_ticket(user_id, seat[0], seat[1], age, vip_flag) for seat in seats]
-        receipt = Receipt(user_id, list_ticket)
 
-        self.__receipts[receipt.receipt_id] = receipt
 
         tickets: list[Ticket] = []
         for row, number in seats:
             ticket = self.__ticket_factory.create_ticket(user_id, row, number, age, vip_flag)
             tickets.append(ticket)
 
+        receipt = Receipt(user_id, tickets)
 
+        self.__receipts[receipt.receipt_id] = receipt
         for ticket in tickets:
             self.__tickets[ticket.id] = ticket
 

@@ -3,7 +3,6 @@ from api.dependencies import get_cinema_service
 from api.exceptions import ReceiptExceptions
 from api.shemas import ReceiptResponse, PurchaseRequest, TicketResponse
 from application.service import CinemaService, receipt
-
 from uuid import UUID
 
 ticket_router = APIRouter(prefix = "/tickets")
@@ -46,7 +45,7 @@ def ticket_buy(request : PurchaseRequest, service = Depends(get_cinema_service))
 
 
 @ticket_router.get("/{receipt_id}")
-def get_tickets(receipt_id : UUID, service : CinemaService = Depends(get_cinema_service)) -> ReceiptResponse:
+def get_receipt(receipt_id : UUID, service : CinemaService = Depends(get_cinema_service)) -> ReceiptResponse:
 
     receipt = service.get_receipt(receipt_id)
 
@@ -72,6 +71,19 @@ def get_tickets(receipt_id : UUID, service : CinemaService = Depends(get_cinema_
         created_at = receipt.created_at
     )
 
+
+
+@ticket_router.get("/bills/{ticket_id}")
+def get_ticket(ticket_id : UUID, service : CinemaService = Depends(get_cinema_service)) -> TicketResponse:
+    ticket = service.get_ticket(ticket_id)
+
+    return TicketResponse(
+        ticket_id = ticket.id,
+        ticket_type = ticket.get_ticket_type(),
+        row = ticket.row,
+        number = ticket.number,
+        price = ticket.price
+    )
 
 
 
