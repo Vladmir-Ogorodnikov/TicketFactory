@@ -47,3 +47,14 @@ class ReceiptResponse(BaseModel):
     tickets : List[TicketResponse]
     total_amount : float
     created_at : str
+
+
+class HealthResponse(BaseModel):
+
+    status : str
+    service : str = "cinema-booking-api"
+    version : str
+
+
+
+

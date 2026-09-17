@@ -5,12 +5,14 @@ from application.factory import TicketFactory
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from api.routes import ticket_router
+from api.health import health_router
 from api.exceptions import TicketExceptions, ReceiptExceptions, TicketValidationError
 from infrastructure.receipt import Receipt
 from uuid import UUID
 
 app = FastAPI()
 app.include_router(ticket_router)
+app.include_router(health_router)
 
 @app.exception_handler(TicketExceptions)
 def ticket_exceptions(request : Request, exc : TicketExceptions):
