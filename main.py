@@ -3,6 +3,7 @@ from uuid import uuid4
 from infrastructure.printers import ConsolePrinter, PDFPrinter
 from application.factory import TicketFactory
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from api.routes import ticket_router
 from api.health import health_router
@@ -11,6 +12,14 @@ from infrastructure.receipt import Receipt
 from uuid import UUID
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"], # Разрешаем запросы с Vite
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.include_router(ticket_router)
 app.include_router(health_router)
 
